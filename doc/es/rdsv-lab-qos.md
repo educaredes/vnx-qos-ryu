@@ -179,7 +179,7 @@ sesión SSH a esa máquina:
 ssh root@172.17.2.2
 ```
 
-Utilice los comandos del paso 9 para realizar el siguiente análisis.
+Realice el siguiente análisis usando los comando indicados.
 
 Acceda a s2 y obtenga su tabla de flujos utilizando el comando:
 
@@ -215,7 +215,7 @@ Visualice el fichero resultado, y a continuación:
 (4) Analice las estadísticas obtenidas en estas pruebas, explicando los
     resultados obtenidos. Adjunte los ficheros como parte de la entrega.
 
-Pruebe también los comandos del paso 9 de la guía:
+Pruebe también los comandos:
 ```shell
 # s2
 ovs-vsctl list qos
@@ -243,7 +243,7 @@ flujo con destino h2 y puerto UDP 5004, y utilice los puertos 5003 y
 
 (7) Incluya los comandos iperf utilizados para las pruebas en h1 y h2 y
     describa los resultados obtenidos.
-    
+
 (8) Obtenga un fichero flujos-s1.txt con el volcado de las tablas de
     flujo de s1 y adjúntelo como parte de la entrega.
 
