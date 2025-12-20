@@ -238,7 +238,7 @@ flujo con destino h2 y puerto UDP 5004, y utilice los puertos 5003 y
     json obtenidas.
 
 (6) Utilice los comandos `ovs-vsctl list qos` y `ovs-vsctl list queue
-    \<queue_id\>` para comprobar la configuración de s1 e incluya el
+    <queue_id>` para comprobar la configuración de s1 e incluya el
     resultado de esos comandos en la memoria.
 
 (7) Incluya los comandos iperf utilizados para las pruebas en h1 y h2 y
