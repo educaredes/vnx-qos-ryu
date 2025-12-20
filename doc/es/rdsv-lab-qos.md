@@ -212,7 +212,7 @@ Visualice el fichero resultado, y a continuación:
     estadísticas de las colas, guardando el resultado en un fichero
     colas5002.txt
 
-(4) Analice las estadísticas obtenidas en estas pruebas, explicando los
+(4) Analice las estadísticas de las colas obtenidas en estas pruebas, explicando los
     resultados obtenidos. Adjunte los ficheros como parte de la entrega.
 
 Pruebe también los comandos:
