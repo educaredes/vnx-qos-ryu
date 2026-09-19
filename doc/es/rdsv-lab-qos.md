@@ -137,11 +137,10 @@ curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "udp_dst": 
 curl -X GET http://172.17.2.100:8080/qos/rules/0000000000000002 > rules.json
 ```
 
-A continuación, visualice los ficheros con la ayuda de *jq* para
-comprobar que las respuestas son las esperadas.
-
-(1) Incluya en formato texto, en el cuerpo de la memoria, las tres
-    respuestas JSON.
+(1) Indique para qué se está usando cada una de las llamadas anteriores. 
+A continuación, visualice los ficheros con la ayuda de *jq* para comprobar 
+que las respuestas son las esperadas. Incluya en formato texto, en el cuerpo 
+de la memoria, las tres respuestas JSON.
 
 Después realice las pruebas siguientes de prestaciones entre h1 y h2 para comprobar
 que se ha configurado la QoS.
