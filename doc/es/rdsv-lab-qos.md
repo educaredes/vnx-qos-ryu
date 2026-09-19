@@ -118,18 +118,20 @@ contraseña *xxxx.*
 
 ### Análisis de la operación de QoS y tablas de flujos OpenFlow
 
-Realice la configuración de QoS que se indica a continuación. Como verá, cada comando (salvo el primero) redirije la salida, en formato json, hacia un fichero para su análisis.  
+Realice la configuración de QoS que se indica a continuación. Como verá, cada 
+comando (salvo el primero) redirige la salida, en formato json, hacia un fichero
+para su análisis.  
 
 ```shell
 curl -X PUT -d '"tcp:172.17.2.2:6632"' http://172.17.2.100:8080/v1.0/conf/switches/0000000000000002/ovsdb_addr
 ```
 
 ```shell
-curl -X POST -d '{"port_name": "eth2", "type": "linux-htb", "max_rate": "1000000", "queues": [{"max_rate": "500000"}, {"min_rate": "800000"}]}' http://172.17.2.100:8080/qos/queue/0000000000000002 > queues.json
+curl -X POST -d '{"port_name": "eth2", "type": "linux-htb", "max_rate": "1200000", "queues": [{"max_rate": "600000"}, {"min_rate": "1000000"}]}' http://172.17.2.100:8080/qos/queue/0000000000000002 > queues.json
 ```
 
 ```shell
-curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "udp_dst": "5002"}, "actions":{"queue": "1"}}' http://172.17.2.100:8080/qos/rules/0000000000000002 > match.json
+curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "udp_dst": "65001"}, "actions":{"queue": "1"}}' http://172.17.2.100:8080/qos/rules/0000000000000002 > match.json
 ```
 
 
@@ -145,29 +147,29 @@ de la memoria, las tres respuestas JSON.
 Después realice las pruebas siguientes de prestaciones entre h1 y h2 para comprobar
 que se ha configurado la QoS.
 
-El flujo h2-->h1 usando el puerto 5002 debe estar entre 800 Kbps y 1 Mbps:
+El flujo h2-->h1 usando el puerto 65001 debe estar entre 1 Mbps y 1.2 Mbps:
 
 ```shell
 # h1
-iperf -s -u -i 1 -p 5002
+iperf -s -u -i 1 -p 65001
 ```
 
 ```shell
 # h2
-iperf -c 10.0.0.1 -p 5002 -u -b 1.2M -l 1200
+iperf -c 10.0.0.1 -p 65001 -u -b 1.4M -l 1200
 ```
 
-El flujo h2-->h1 usando el puerto 5001 (u otros puertos) debe estar limitado a
-500 Kbps:
+El flujo h2-->h1 usando el puerto 65000 (u otros puertos) debe estar limitado a
+600 Kbps:
 
 ```shell
 # h1
-iperf -s -u -i 1 -p 5001
+iperf -s -u -i 1 -p 65000
 ```
 
 ```shell
 # h2
-iperf -c 10.0.0.1 -p 5001 -u -b 1.2M -l 1200
+iperf -c 10.0.0.1 -p 65000 -u -b 1.4M -l 1200
 ```
 
 (2) Describa los resultados de las pruebas de prestaciones con iperf.
@@ -191,7 +193,7 @@ ovs-ofctl dump-flows br0 > flujos-s2.txt
 (3) Identifique en la tabla de flujos la información relacionada con la
     QoS especificada (entradas con las acciones "resubmit (,1)").
     Explique la relación entre esas entradas y la QoS obtenida en las
-    pruebas con iperf en cada uno de los puertos 5001 y 5002. Adjunte el
+    pruebas con iperf en cada uno de los puertos 65000 y 65001. Adjunte el
     fichero flujos-s2.txt como parte de la entrega.
 
 De nuevo desde s2, acceda a las estadísticas de las colas, guardando el
@@ -204,13 +206,13 @@ ovs-ofctl -O OpenFlow13 queue-stats br0 > colas.txt
 
 Visualice el fichero resultado, y a continuación:
 
--   Repita la prueba de iperf en el puerto 5001 y acceda de nuevo a las
+-   Repita la prueba de iperf en el puerto 65000 y acceda de nuevo a las
     estadísticas de las colas, guardando el resultado en un fichero
-    colas5001.txt
+    colas65000.txt
 
--   Repita la prueba de iperf en el puerto 5002 y acceda de nuevo a las
+-   Repita la prueba de iperf en el puerto 65001 y acceda de nuevo a las
     estadísticas de las colas, guardando el resultado en un fichero
-    colas5002.txt
+    colas65001.txt
 
 (4) Analice las estadísticas de las colas obtenidas en estas pruebas, explicando los
     resultados obtenidos. Adjunte los ficheros como parte de la entrega.
@@ -229,10 +231,10 @@ ovs-vsctl list queue <queue_id>
 ### Configuración de nuevos flujos con QoS
 
 Configure a continuación la QoS en el sentido de h1 a h2 una tasa global
-para la interfaz de s1 a s2 de 2 Mbps, una cola 0 con tasa máxima de 1.2
-Mbps y una cola 1 con tasa mínima de 1.7 Mbps. Asigne a la cola 1 el
-flujo con destino h2 y puerto UDP 5004, y utilice los puertos 5003 y
-5004 para las pruebas con iperf.
+para la interfaz de s1 a s2 de 1 Mbps, una cola 0 con tasa máxima de 500 Kbps
+y una cola 1 con tasa mínima de 800 Mbps. Asigne a la cola 1 el
+flujo con destino h2 y puerto UDP 65003, y utilice los puertos 65002 y
+65003 para las pruebas con iperf.
 
 (5) Incluya en la memoria los comandos curl utilizados y las respuestas
     json obtenidas.
@@ -256,4 +258,4 @@ siguiente contenido:
     y 7.
 
 -   Los ficheros solicitados en las cuestiones 3 (flujos-s2.txt), 4
-    (colas.txt, colas5001.txt, colas5002.txt) y 8 (flujos-s1.txt).
+    (colas.txt, colas65000.txt, colas65001.txt) y 8 (flujos-s1.txt).
