@@ -1,6 +1,6 @@
 > **RDSV/SDNV**
 >
-> Curso 2025-26
+> Curso 2026-27
 
 # QoS con Open vSwitch y Ryu
 
@@ -39,7 +39,7 @@ proporcionar QoS en el tráfico intercambiado entre h1 y h2.
 
 Solo se puede realizar la práctica en la máquina virtual ya utilizada en
 la práctica anterior
-([VNXLAB2025-v1.ova](https://idefix.dit.upm.es/download/vnx/vm/VNXLAB2025-v1.ova)).
+([VNXLAB2026-v1.ova](https://idefix.dit.upm.es/download/vnx/vm/VNXLAB2026-v1.ova)).
 Recuerde que puede importar esta máquina virtual en cualquier PC con
 VirtualBox instalado, ya sea su PC de uso personal o un PC del
 laboratorio B-123, usando en este último caso el script:
