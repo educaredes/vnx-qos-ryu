@@ -100,6 +100,7 @@ es la responsable de implementar un switch de nivel 2 con soporte para QoS.
 Abra un nuevo terminal y arranque el escenario de red:
 
 ```shell
+cd vnx-qos-ryu
 sudo vnx -f qos-ryu.xml -v -t
 ```
 
