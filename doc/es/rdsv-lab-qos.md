@@ -87,8 +87,8 @@ terminal:
 pip install ovs==2.16.0
 ```
 
-Al igual que en la práctica P1.1 anterior, se recomienda ejecura el siguiente comando 
-para corregir una  incompatibilidad del código de Ryu con la versión de Python disponible 
+Al igual que en la práctica P1.1 anterior, se recomienda ejecutar el siguiente comando 
+para corregir una incompatibilidad del código de Ryu con la versión de Python disponible 
 en la máquina virtual:
 
 ```shell
@@ -147,7 +147,7 @@ curl -X POST -d '{"match": {"nw_dst": "10.0.0.1", "nw_proto": "UDP", "udp_dst": 
 curl -X GET http://172.17.2.100:8080/qos/rules/0000000000000002 > rules.json
 ```
 
->**Nota**: Tenga en cuenta que, en la disciplina de colas configurada en la segunda petición, las colas se identifican según el orden en el que se especifican: 0 para la primera y 1 para la segunda. La cola 0 es la cola predeterminada, es decir, la que se utiliza cuando no existe una regla de flujo que asocie el tráfico a la cola 1.
+>**Nota**: Tenga en cuenta que, en la disciplina de colas configurada en la segunda petición, las colas se identifican según el orden en el que se especifican: 0 para la primera y 1 para la segunda. **La cola 0 es la cola predeterminada**, es decir, la que se utiliza cuando no existe una regla de flujo que asocie el tráfico a la cola 1.
 
 (1) Indique para qué se está usando cada una de las llamadas anteriores. 
 A continuación, visualice los ficheros con la ayuda de *jq* para comprobar 
